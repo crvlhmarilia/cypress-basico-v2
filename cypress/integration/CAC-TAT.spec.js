@@ -70,6 +70,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
     it('envia o formulário com sucesso com um comando customizado',function(){
         cy.fillMandatoryFieldsAndSubmit()
+        cy.contains('button','Enviar').should('be.visible')
+        .click()
         cy.get('span[class="success"]').should('be.visible')
     })
 
