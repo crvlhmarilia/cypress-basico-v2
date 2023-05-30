@@ -238,4 +238,32 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#privacy a').click()
         cy.get('h1[id="title"]').should('be.visible')
     })
- })
+
+    it('exibe mensagem por 3 segundos', function(){
+        cy.clock()
+        cy.contains('button', 'Enviar').should('be.visible')
+        .click()
+        cy.get('span[class="error"]').should('be.visible')
+        cy.tick(3000)
+        cy.get('span[class="error"]').should('not.be.visible')
+    })
+
+    it.only('exibe e esconde as mensagens de sucesso e erro usando invoke', function(){
+        cy.get('span[class=success]').should('not.be.visible')
+        .invoke('show')
+        .should('be.visible').and('contain', 'Mensagem enviada com sucesso.')
+        .invoke('hide').should('not.be.visible')
+        cy.get('span[class=error]').should('not.be.visible')
+        .invoke('show')
+        .should('be.visible').and('contain', 'Valide os campos obrigatórios!')
+        .invoke('hide').should('not.be.visible')
+    })
+
+
+    })
+
+    
+        
+
+    
+
